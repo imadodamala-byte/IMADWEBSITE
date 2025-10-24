@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contact Us - IMADUNION</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+  <style>
+    /* =======================
+       Base Styles
+       ======================= */
+    :root {
+      --primary-color: #0c5079;
+      --secondary-color: #37a8df;
+      --white: #ffffff;
+      --accent-color: #ff6633; /* Used for the orange icons/buttons */
+      --light-bg: #f8fafc;
+      --card-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Inter", sans-serif;
+    }
+
+    body {
+      background-color: var(--light-bg);
+      color: #1e293b;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    img {
+      max-width: 100%;
+    }
+
+    /* =======================
+       Navbar (Replicated for consistency)
+       ======================= */
+    .navbar-wrapper {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(8px);
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      padding: 1rem;
+    }
+
+    .navbar {
+      max-width: 1200px;
+      margin: 0 auto;
+      background-color: var(--primary-color);
+      color: var(--white);
+      border-radius: 9999px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      height: 64px;
+      padding: 0 1.5rem;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    }
+
+    .navbar-logo img {
+      height: 40px;
+    }
+
+    .navbar-links {
+      display: flex;
+      gap: 2rem;
+    }
+
+    .navbar-links a {
+      font-weight: 500;
+      transition: color 0.3s;
+      padding: 8px 15px;
+      border-radius: 20px;
+    }
+
+    .navbar-links a:hover {
+      color: var(--secondary-color);
+    }
+    
+    /* Desktop Active State */
+    .navbar-links a.active {
+      color: #000; 
+      background-color: var(--white);
+      font-weight: 600;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    }
+
+    .mobile-button {
+      display: none;
+      font-size: 1.5rem;
+      color: #fff;
+      background: none;
+      border: none;
+      cursor: pointer;
+    }
+
+    .mobile-menu {
+      display: none;
+      background-color: var(--primary-color);
+      color: var(--white);
+      border-radius: 12px;
+      margin: 0.5rem 1rem;
+      overflow: hidden;
+    }
+
+    .mobile-menu a {
+      display: block;
+      padding: 1rem 1.5rem;
+      border-top: 1px solid rgba(255,255,255,0.1);
+      transition: background 0.3s;
+    }
+    
+    /* Mobile Active State */
+    .mobile-menu a.active {
+      background-color: var(--white);
+      color: #000; 
+      font-weight: 600;
+    }
+
+    .mobile-menu a:hover:not(.active) {
+      background-color: var(--secondary-color);
+    }
+
+    /* =======================
+       Contact Section (New Design)
+       ======================= */
+    .contact-container {
+      max-width: 1200px;
+      margin: 4rem auto;
+      padding: 2rem;
+      text-align: center;
+    }
+
+    .contact-container h1 {
+        font-size: 2.5rem;
+        font-weight: 700;
+        color: var(--primary-color);
+        margin-bottom: 0.5rem;
+    }
+    
+    .contact-container p {
+        font-size: 1.1rem;
+        color: #666;
+        margin-bottom: 3rem;
+    }
+    
+    /* --- Info Cards Grid --- */
+    .info-cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+      margin-bottom: 4rem;
+    }
+    
+    .info-card {
+      background-color: var(--white);
+      padding: 1.5rem;
+      border-radius: 1rem;
+      box-shadow: var(--card-shadow);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      border: 1px solid #eee;
+      transition: transform 0.3s;
+    }
+
+    .info-card:hover {
+        transform: translateY(-5px);
+    }
+    
+    .icon-wrapper {
+      width: 60px;
+      height: 60px;
+      background: #0c5079; /* Light orange background */
+      border: 1px solid black ;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1rem;
+    }
+
+    .icon-wrapper i {
+      font-size: 1.5rem;
+      color: white;
+    }
+
+    .info-card h3 {
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: #333;
+      margin-bottom: 0.25rem;
+    }
+    
+    .info-card p {
+        margin: 0;
+        font-size: 1rem;
+        color: #777;
+    }
+
+    /* --- Contact Form --- */
+    .contact-form {
+      background-color: var(--white);
+      padding: 2rem;
+      border-radius: 1rem;
+      box-shadow: var(--card-shadow);
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+    
+    /* For screens wider than 600px, place name/email side-by-side */
+    @media (min-width: 600px) {
+        .form-grid > div:nth-child(1),
+        .form-grid > div:nth-child(2) {
+            grid-column: span 1;
+        }
+    }
+    
+    .form-group {
+        width: 100%;
+    }
+    
+    .form-grid input,
+    .form-grid textarea {
+      width: 100%;
+      padding: 1rem;
+      border: 1px solid #ddd;
+      border-radius: 0.5rem;
+      outline: none;
+      font-size: 1rem;
+      transition: border-color 0.3s;
+    }
+
+    .form-grid textarea {
+        height: 150px;
+        resize: none;
+    }
+
+    .form-grid input:focus,
+    .form-grid textarea:focus {
+      border-color: var(--accent-color);
+    }
+    
+    /* Subject and Message span full width */
+    .form-grid > div:nth-child(3),
+    .form-grid > div:nth-child(4) {
+        grid-column: 1 / -1;
+    }
+
+    .contact-form button {
+      background-color: #0c5079;
+      color: #fff;
+      font-weight: 600;
+      padding: 1rem 2rem;
+      border: none;
+      border-radius: 0.5rem;
+      cursor: pointer;
+      transition: background 0.3s, transform 0.3s;
+      margin-top: 1.5rem;
+    }
+
+    .contact-form button:hover {
+      background-color: #e65100; /* Darker orange */
+      transform: translateY(-2px);
+    }
+    
+    /* =======================
+       Footer
+       ======================= */
+    footer {
+      background-color: var(--primary-color);
+      color: #fff;
+      padding: 3rem 1.5rem;
+      margin-top: 4rem;
+    }
+
+    .footer-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+    }
+
+    .footer-logo img {
+      height: 60px;
+      margin-bottom: 1rem;
+    }
+
+    .footer-logo p {
+      font-size: 0.95rem;
+      color: #cbd5e1;
+    }
+
+    .footer-links h3,
+    .footer-social h3 {
+      font-size: 1.1rem;
+      margin-bottom: 1rem;
+      color: var(--secondary-color);
+    }
+
+    .footer-links a {
+      display: block;
+      margin-bottom: 0.5rem;
+      color: #cbd5e1;
+      transition: color 0.3s;
+    }
+
+    .footer-links a:hover {
+      color: var(--secondary-color);
+    }
+
+    .footer-social a {
+      margin-right: 1rem;
+      color: #fff;
+      font-size: 1.25rem;
+      transition: color 0.3s;
+    }
+
+    .footer-social a:hover {
+      color: var(--secondary-color);
+    }
+
+    .footer-bottom {
+      text-align: center;
+      margin-top: 2rem;
+      border-top: 1px solid rgba(255,255,255,0.1);
+      padding-top: 1.5rem;
+      font-size: 0.9rem;
+      color: #cbd5e1;
+    }
+
+    /* =======================
+       Responsive
+       ======================= */
+    @media (max-width: 768px) {
+      .navbar-links { display: none; }
+      .mobile-button { display: block; }
+      .mobile-menu.active { display: block; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Navbar -->
+  <div class="navbar-wrapper">
+    <nav class="navbar">
+      <div class="navbar-logo">
+        <a href="home.html"><img src="logo+.png" alt="IMADUNION Logo"></a>
+      </div>
+      <button class="mobile-button" id="mobile-menu-button"><i class="fas fa-bars"></i></button>
+      <div class="navbar-links">
+        <a href="home.html">Home</a>
+        <a href="about-us.html">About Us</a>
+        <a href="news&event.html">News & Events</a>
+        <a href="achievements.html">Achievements</a>
+        <a href="contact-us.html" class="active">Contact Us</a>
+      </div>
+    </nav>
+  </div>
+
+  <div class="mobile-menu" id="mobile-menu">
+    <a href="home.html">Home</a>
+    <a href="about-us.html">About Us</a>
+    <a href="news&event.html">News & Events</a>
+    <a href="achievements.html">Achievements</a>
+    <a href="contact-us.html" class="active">Contact Us</a>
+  </div>
+
+  <!-- Contact Section -->
+  <section class="contact-container">
+    <h1>Get in Touch</h1>
+    <p>Please use our web form to reach out to us for any inquiries or assistance.</p>
+    
+    <!-- Info Cards Grid -->
+    <div class="info-cards-grid anim-element">
+        <div class="info-card">
+            <div class="icon-wrapper">
+                <i class="fas fa-map-marker-alt"></i>
+            </div>
+            <h3>Our Address</h3>
+            <p>SFADC, ODAMALA</p>
+        </div>
+        
+        <div class="info-card">
+            <div class="icon-wrapper">
+                <i class="fas fa-envelope"></i>
+            </div>
+            <h3>Email Us</h3>
+            <p>imadodamala@gmail.com</p>
+        </div>
+        
+        <div class="info-card">
+            <div class="icon-wrapper">
+                <i class="fas fa-phone"></i>
+            </div>
+            <h3>Call Us</h3>
+            <p>+91 9207256313</p>
+        </div>
+    </div>
+
+    <!-- Contact Form -->
+    <div class="contact-form">
+      <form id="contactForm" class="form-grid">
+        <!-- 1. Name -->
+        <div class="form-group">
+            <input type="text" id="name" placeholder="Your Name" required>
+        </div>
+        
+        <!-- 2. Email -->
+        <div class="form-group">
+            <input type="email" id="email" placeholder="Your Email" required>
+        </div>
+
+        <!-- 3. Subject (Spans full width) -->
+        <div class="form-group">
+            <input type="text" id="subject" placeholder="Subject" required>
+        </div>
+
+        <!-- 4. Message (Spans full width) -->
+        <div class="form-group">
+            <textarea id="message" rows="5" placeholder="Message" required></textarea>
+        </div>
+
+        <button type="submit">Send Message</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-content">
+      <div class="footer-logo">
+        <img src="logo+.png" alt="IMADUNION Logo">
+        <p>Igniting the potential of youth through creativity, collaboration, and leadership – proudly under IMADUNION.</p>
+      </div>
+      <div class="footer-links">
+        <h3>Quick Links</h3>
+        <a href="home.html">Home</a>
+        <a href="about-us.html">About Us</a>
+        <a href="news&event.html">News & Events</a>
+        <a href="achievements.html">Achievements</a>
+      </div>
+      <div class="footer-social">
+        <h3>Follow Us</h3>
+        <a href="https://www.instagram.com/imad_odamala/" target="_blank"><i class="fab fa-instagram"></i></a>
+        <a href="https://www.facebook.com/imad.odamala" target="_blank"><i class="fab fa-facebook"></i></a>
+        <a href="https://www.youtube.com/@imadodamala" target="_blank"><i class="fab fa-youtube"></i></a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      © 2025 IMADUNION. All rights reserved.
+    </div>
+  </footer>
+
+  <!-- Scripts -->  
+  <script type="module">
+    // NOTE: Using Firebase configuration found in the previous version of this file.
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
+    import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyD-Fn4ye0rF1t8gJfXY8bRQFXskg4BQYxE",
+      authDomain: "contact-imadunion.firebaseapp.com",
+      projectId: "achivement-upload",
+      storageBucket: "contact-imadunion.appspot.com",
+      messagingSenderId: "1090640378458",
+      appId: "1:1090640378458:web:a647be77f06d4d4234cc02"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+    document.getElementById("contactForm").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const name = document.getElementById("name").value.trim();
+      const email = document.getElementById("email").value.trim();
+      const subject = document.getElementById("subject").value.trim(); // Added subject field
+      const message = document.getElementById("message").value.trim();
+
+      try {
+        await addDoc(collection(db, "messages"), { name, email, subject, message, timestamp: new Date() });
+        // NOTE: Using console.log instead of alert()
+        console.log("Message sent successfully!");
+        e.target.reset();
+      } catch (error) {
+        console.error("Error sending message:", error);
+        // NOTE: Using console.error instead of alert()
+      }
+    });
+  </script>
+
+  <script>
+    document.getElementById("mobile-menu-button").addEventListener("click", function () {
+      document.getElementById("mobile-menu").classList.toggle("active");
+    });
+  </script>
+</body>
+</html>

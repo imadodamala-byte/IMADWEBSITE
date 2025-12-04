@@ -3,16 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>IMADUNION</title>
-    
-    <!-- Add Font Awesome for social media icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" xintegrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <title>Publications - IMADUNION</title>
+    <link rel="icon" href="logo.png" type="image/png">
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" xintegrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-
+    
     <style>
         /* =================================
-           Global Styles & Variables
+           Global Styles & Variables (from project)
            ================================= */
         :root {
           --primary-color: #0c5079;
@@ -29,679 +29,268 @@
           box-sizing: border-box;
         }
 
-        html {
-            scroll-behavior: smooth;
-        }
-
         body {
           font-family: var(--font-main);
-          background-color: var(--white);
+          background-color: var(--light-gray); /* Use light gray for the page BG */
           color: #333;
         }
 
         /* =================================
-           Preloader Intro Styles (Site-Wide)
+           Page-Specific Styles
            ================================= */
-        #preloader {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: var(--primary-color);
-            z-index: 9999;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            transition: transform 0.8s cubic-bezier(0.76, 0, 0.24, 1) 0.5s, visibility 0.8s 0.5s;
-        }
-        #preloader img {
-            width: 220px;
-            animation: scale-up 1s ease-out;
-            transition: transform 0.5s ease-in, opacity 0.5s ease-in;
+
+        /* Grid Container (like news&event.html) */
+        .publications-grid-container {
+            padding: 20px; /* Reduced padding */
+            margin-top: 20px; /* Added space from top */
         }
 
-        /* NEW: Keyframes for the logo scaling up on load */
-        @keyframes scale-up {
-            from {
-                opacity: 0;
-                transform: scale(0.8);
-            }
-            to {
-                opacity: 1;
-                transform: scale(1);
-            }
-        }
-
-        /* Hide preloader when the body has 'loaded' class */
-        body.loaded #preloader {
-            transform: translateY(-100%);
-            visibility: hidden;
-        }
-        
-        body.loaded #preloader img {
-            opacity: 0;
-            transform: scale(0.5);
-        }
-        
-        /* Hide main content until loaded to prevent flash */
-        .page-content-wrapper {
-            opacity: 0;
-            transform: translateY(-100px);
-            transition: opacity 1.2s cubic-bezier(0.4, 0, 0.2, 1) 0.7s, transform 1.2s cubic-bezier(0.4, 0, 0.2, 1) 0.7s;
-        }
-        
-        body.loaded .page-content-wrapper {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        /* =================================
-           NEW Load-in Animation Sequence
-           ================================= */
-        /* This hides the hero elements initially */
-        .load-in-item {
-            opacity: 0;
-            transform: translateY(-20px);
-        }
-        /* When the page is loaded, trigger the animation */
-        body.loaded .load-in-item {
-            animation: load-in 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
-        }
-        @keyframes load-in {
-            from {
-                opacity: 0;
-                transform: translateY(-20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-        /* Define the delays for the sequence.
-           This starts *after* the page wrapper starts sliding down (which is at 0.7s)
-        */
-        body.loaded .load-in-nav {
-            animation-delay: 0.8s; /* 1. Navbar */
-        }
-        body.loaded .load-in-text-h3 {
-            animation-delay: 1.0s; /* 2. Title */
-        }
-        body.loaded .load-in-text-p {
-            animation-delay: 1.2s; /* 3. Paragraph */
-        }
-        body.loaded .load-in-image {
-            animation-delay: 1.2s; /* 3. Image (at same time as paragraph) */
-        }
-        body.loaded .load-in-button {
-            animation-delay: 1.4s; /* 4. Button */
-        }
-
-        /* =================================
-           NEW Animation on Scroll Styles (Site-Wide)
-           ================================= */
-        /* Base class for all animated elements */
-        .animate-on-scroll {
-            opacity: 0;
-            transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        
-        /* Specific animation types */
-        .fade-in-up {
-            transform: translateY(30px);
-        }
-        .fade-in-left {
-            transform: translateX(-30px);
-        }
-        .fade-in-right {
-            transform: translateX(30px);
-        }
-
-        /* The class to add when visible */
-        .animate-on-scroll.is-visible {
-            opacity: 1;
-            transform: translate(0, 0);
-        }
-
-        /* ==========================================================
-           SM - Small Screens / Mobile First (Default Styles)
-           ========================================================== */
-
-        /* --- Navigation: SM --- */
-        .nav-container {
-          width: 100%;
-          display: flex;
-          justify-content: center;
-          padding: 15px;
-          position: sticky;
-          top: 0;
-          z-index: 1000;
-          background-color: rgba(255, 255, 255, 0.85);
-          backdrop-filter: blur(8px);
-        }
-
-        .navbar {
-          width: 100%;
-          height: 70px; /* Adjusted for mobile */
-          background-color: var(--primary-color);
-          border-radius: 35px;
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-          box-shadow: 0 4px 18px rgba(0, 0, 0, 0.1);
-          padding: 0 20px;
-          position: relative;
-        }
-
-        .logo-container {
-          width: 130px;
-        }
-
-        .logo-container img {
-          width: 100%;
-          height: auto;
-          display: block;
-          transition: transform 0.3s ease;
-        }
-
-        .logo-container:hover img {
-          transform: scale(1.05);
-        }
-
-        .menu-toggle {
-          display: block; /* Visible on mobile */
-          font-size: 32px;
-          color: var(--white);
-          cursor: pointer;
-          z-index: 1001;
-        }
-
-        .rightside {
-          display: none; /* Hidden on mobile by default */
-          flex-direction: column;
-          align-items: center;
-          background: var(--primary-color);
-          position: absolute;
-          top: 78px;
-          right: 0;
-          width: 100%;
-          box-shadow: 0 8px 16px rgba(0,0,0,0.1);
-          padding: 20px 0;
-          gap: 0;
-          /* UPDATED: Rounded corners for dropdown */
-          border-bottom-left-radius: 20px;
-          border-bottom-right-radius: 20px;
-        }
-
-        .rightside.show {
-          display: flex;
-        }
-
-        .rightside a {
-          text-decoration: none;
-          color: var(--white);
-          font-size: 18px;
-          font-weight: 500;
-          padding: 15px 0;
-          width: 100%;
-          text-align: center;
-          transition: color 0.3s ease, background-color 0.3s ease;
-        }
-        
-        /* New Active State CSS for mobile */
-        .rightside a.active {
-            color: #000; /* Black text color */
-            background-color: var(--white); /* White background for contrast */
-            border-radius: 12px; /* Slight rounding for the mobile item */
-            font-weight: 600;
-        }
-
-        .rightside a:hover:not(.active) {
-          background-color: var(--secondary-color);
-        }
-
-        /* --- Hero Section: SM --- */
-        .page-one-container {
-          padding: 30px 20px;
-          flex-direction: column;
-          text-align: center;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          gap: 30px;
-          overflow-x: hidden; /* Prevent horizontal scroll during animation */
-        }
-
-        .leftside-first-page h3 {
-          font-size: 28px;
-          font-weight: 600;
-          line-height: 1.3;
-          color: var(--primary-color);
-        }
-
-        .leftside-first-page p {
-          margin: 20px 0 30px;
-          font-size: 15px;
-          line-height: 1.7;
-        }
-
-        .leftside-first-page button {
-          border: none;
-          width: 180px;
-          height: 50px;
-          background-color: var(--primary-color);
-          color: var(--white);
-          border-radius: 20px;
-          font-size: 20px;
-          font-weight: 500;
-          cursor: pointer;
-          transition: all 0.3s ease;
-        }
-
-        .leftside-first-page button:hover {
-          background-color: var(--secondary-color);
-          transform: translateY(-3px);
-        }
-
-        .img-college-container {
-          overflow: hidden;
-          border-radius: 20px;
-        }
-
-        .img-college-container img {
-          width: 100%;
-          height: auto;
-          border-radius: 20px;
-          transition: transform 0.4s ease;
-        }
-
-        .img-college-container:hover img {
-          transform: scale(1.05);
-        }
-
-
-        /* --- Section Two: SM --- */
-        .section {
-          padding: 80px 20px;
-          position: relative;
-          background-color: #0c5079df;
-          color: var(--white);
-          text-align: center;
-          overflow: hidden;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-        }
-        .section-content { max-width: 900px; margin: 0 auto; position: relative; z-index: 1;}
-        .section::before { content: ""; position: absolute; inset: 0; background-image: url("https://www.transparenttextures.com/patterns/arabesque.png"); opacity: 0.1; z-index: 0; }
-        .section h3 { font-size: 22px; margin-bottom: 20px; }
-        .section p { font-size: 18px; line-height: 1.6; }
-        .section button { margin-top: 30px; background: var(--white); color: var(--primary-color); border: none; padding: 12px 30px; border-radius: 30px; font-size: 16px; cursor: pointer; transition: all 0.3s ease; box-shadow: 0 4px 10px rgba(0,0,0,0.2); }
-        .section button:hover { background: var(--light-gray); transform: translateY(-3px); box-shadow: 0 6px 12px rgba(0,0,0,0.25); }
-
-
-        /* --- News Grid: SM --- */
-        .page-three-container { padding: 60px 20px; overflow-x: hidden; }
-        .news {
-          display: flex; /* Simple column layout for mobile */
-          flex-direction: column;
-          gap: 20px;
-          max-width: 500px;
-          margin: 0 auto;
-        }
-        .news > div {
-          position: relative;
-          border-radius: 28px;
-          overflow: hidden;
-          background-color: #000;
-          height: 250px; /* Fixed height for consistency */
-        }
-        .news img { width: 100%; height: 100%; object-fit: cover; opacity: 0.8; transition: transform 0.4s ease, opacity 0.4s ease; }
-        .news > div:hover img { transform: scale(1.05); opacity: 0.6; }
-        .div1-hover, .div2-hover { position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(to top, rgba(12, 80, 121, 0.9), transparent); z-index: 2; color: var(--white); padding: 40px 20px 20px; transition: opacity 0.4s ease; display: flex; align-items: flex-end; opacity: 0; }
-        .div1-hover { top: 60%; }
-        .div2-hover { top: 50%; }
-        .news > div:hover .div1-hover, .news > div:hover .div2-hover { opacity: 1; }
-        .div1-hover p, .div2-hover p { width: 100%; color: var(--white); font-size: 15px; line-height: 1.4; }
-
-
-        /* --- Footer: SM --- */
-        .footer-container {
-          padding: 40px 20px;
-          background: var(--primary-color);
-          color: var(--white);
-        }
-        .footer-content {
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          text-align: center;
-          gap: 30px;
-        }
-        .footer-section { min-width: 100%; }
-        .footer-logo { width: 150px; margin: 0 auto 20px; transition: transform 0.3s ease; }
-        .footer-logo:hover { transform: scale(1.05); }
-        .footer-title { font-size: 20px; margin-bottom: 15px; font-weight: bold; }
-        .footer-text { font-size: 14px; line-height: 1.6; color: var(--text-light); }
-        .footer-links, .footer-social { list-style: none; padding: 0; }
-        .footer-links li, .footer-social li { margin: 10px 0; }
-        .footer-links a, .footer-social a { text-decoration: none; color: var(--text-light); transition: color 0.3s ease; display: inline-flex; align-items: center; gap: 10px; font-size: 15px; }
-        .footer-links a:hover, .footer-social a:hover { color: var(--white); }
-        .footer-social i { font-size: 20px; width: 20px; text-align: center; }
-        .footer-social .fa-instagram { color: #E1306C; }
-        .footer-social .fa-facebook { color: #1877F2; }
-        .footer-social .fa-whatsapp { color: #25D366; }
-        .footer-bottom { text-align: center; margin-top: 30px; padding-top: 20px; border-top: 1px solid rgba(255, 255, 255, 0.1); font-size: 14px; opacity: 0.8; }
-
-
-        /* ==========================================================
-           MD - Medium Screens (>= 768px, Tablets)
-           ========================================================== */
-        @media (min-width: 768px) {
-          /* --- Navigation: MD --- */
-          .menu-toggle { display: none; }
-          .rightside {
-            display: flex;
-            position: static;
-            flex-direction: row;
-            width: auto;
-            background: none;
-            box-shadow: none;
-            padding: 0;
-            gap: 20px;
-          }
-          .rightside a { padding: 8px 15px; border-radius: 20px; width: auto; } /* Added padding and border-radius for desktop active state */
-          .rightside a:hover:not(.active) { background: none; color: var(--secondary-color); }
-          
-          /* Desktop Active State Specifics */
-          .rightside a.active {
-            color: #000;
-            background-color: var(--white);
-            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-          }
-          
-          .navbar { height: 78px; border-radius: 43px; }
-
-          /* --- Hero Section: MD --- */
-          .page-one-container {
-            padding: 60px 40px;
-            flex-direction: row;
-            text-align: left;
-            min-height: 60vh;
-          }
-          .leftside-first-page { flex: 1; max-width: 650px; }
-          .rightside-first-page { flex: 1; max-width: 500px; }
-          .leftside-first-page h3 { font-size: 36px; }
-          
-          /* --- News Grid: MD --- */
-          .page-three-container { padding: 80px 40px; }
-          .news {
+        .publications-grid {
             display: grid;
-            max-width: 100%;
-            grid-template-columns: repeat(4, 1fr);
-            grid-template-rows: repeat(4, 15vw); /* Responsive rows */
-          }
-          .div1 { grid-area: 1 / 1 / 3 / 5; }
-          .div2 { grid-area: 3 / 1 / 5 / 3; }
-          .div3 { grid-area: 3 / 3 / 5 / 5; }
-          .div4, .div5 { display: none; } /* Hide some for tablet view */
-
-          /* --- Footer: MD --- */
-          .footer-container { padding: 60px 40px; }
-          .footer-content {
-            flex-direction: row;
-            flex-wrap: wrap;
-            align-items: flex-start;
-            text-align: left;
+            /* Responsive grid: 1 column on mobile, adapting up to 3 on desktop */
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 30px;
-          }
-          .footer-section { flex: 1; min-width: calc(50% - 20px); }
-          .footer-logo { margin: 0 0 20px; }
-        }
-
-
-        /* ==========================================================
-           LG - Large Screens (>= 1024px, Desktops)
-           ========================================================== */
-        @media (min-width: 1024px) {
-          /* --- Navigation: LG --- */
-          .rightside { gap: 32px; }
-
-          /* --- Hero Section: LG --- */
-          .page-one-container {
-            padding: 40px 90px;
-            min-height: 80vh;
-          }
-          .leftside-first-page h3 { font-size: 42px; }
-
-          /* --- News Grid: LG --- */
-          .news {
             max-width: 1200px;
             margin: 0 auto;
-            grid-template-columns: repeat(6, 1fr);
-            grid-template-rows: repeat(7, 5vw);
-          }
-          .div1 { grid-area: 1 / 1 / 5 / 5; }
-          .div2 { grid-area: 1 / 5 / 5 / 7; }
-          .div3 { grid-area: 5 / 1 / 8 / 3; }
-          .div4 { display: block; grid-area: 5 / 3 / 8 / 5; } /* Re-enable */
-          .div5 { display: block; grid-area: 5 / 5 / 8 / 7; } /* Re-enable */
-
-          /* --- Footer: LG --- */
-          .footer-section { min-width: 220px; } /* Allow more columns */
-          .footer-content { flex-wrap: nowrap; } /* All on one line */
+        }
+        
+        /* Loading/Error Message Style */
+        .grid-status {
+            text-align: center;
+            color: #888;
+            grid-column: 1 / -1; /* Span all columns */
+            font-size: 1.1rem;
+            padding: 40px 0;
         }
 
-        /* ==========================================================
-           XL - Extra Large Screens (>= 1280px, Large Desktops)
-           ========================================================== */
-        @media (min-width: 1280px) {
-          /* --- Widen containers for a more spacious feel --- */
-          .navbar, .page-one-container, .footer-content, .footer-bottom {
-            max-width: 1328px;
-            margin-left: auto;
-            margin-right: auto;
-          }
+        /* Magazine Card Style (based on news-card) */
+        .magazine-card {
+            background-color: var(--white);
+            border-radius: 16px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .magazine-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+        }
+
+        .magazine-card-image img {
+            width: 100%;
+            height: 400px; /* Fixed height for magazine covers */
+            object-fit: cover; /* This will cover the area, might crop */
+            object-position: top; /* Prioritize the top of the cover */
+            display: block;
+            background-color: #eee; /* Placeholder bg */
+        }
+
+        .magazine-card-content {
+            padding: 25px;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1; /* Allows button to be pushed to the bottom */
+        }
+
+        .magazine-date {
+            font-size: 13px;
+            color: #777;
+            margin-bottom: 8px;
+        }
+
+        .magazine-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: var(--primary-color);
+            margin-bottom: 12px;
+        }
+
+        .magazine-description {
+            font-size: 15px;
+            line-height: 1.6;
+            color: #555;
+            flex-grow: 1; /* Pushes button down */
+            margin-bottom: 20px;
+        }
+        
+        .magazine-actions {
+            margin-top: auto; /* Pushes this to the bottom */
+        }
+
+        .download-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            text-decoration: none;
+            background-color: var(--primary-color);
+            color: var(--white);
+            font-weight: 600;
+            font-size: 15px;
+            padding: 12px 20px;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+        }
+
+        .download-btn:hover {
+            background-color: var(--secondary-color);
+            transform: translateY(-2px);
+        }
+        
+        .download-btn i {
+            font-size: 14px;
+        }
+
+
+        /* =================================
+           Responsive Media Queries
+           ================================= */
+        @media (min-width: 768px) {
+            /* --- Page Responsive --- */
+            .publications-grid-container { 
+                padding: 40px; 
+                margin-top: 40px;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            /* --- Page Responsive --- */
+            .publications-grid-container { padding: 60px 80px; }
+        }
+         @media (min-width: 1280px) {
+            .publications-grid {
+                max-width: 1328px;
+            }
         }
     </style>
 </head>
 <body>
 
 <!-- =======================
-     Preloader Intro
+     Publications Grid Section
      ======================= -->
-<div id="preloader">
-    <img src="logo+.png" alt="IMADUNION Loading Logo">
-</div>
-
-<div class="page-content-wrapper">
-    <!-- =======================
-         Navigation Bar 
-         ======================= -->
-    <div class="nav-container load-in-item load-in-nav">
-        <nav class="navbar">
-            <div class="left-side">
-                <div class="logo-container">
-                    <img src="logo+.png" alt="IMADUNION Logo">
-                </div>
-            </div>
-            <div class="menu-toggle">☰</div>
-            <div class="rightside">
-                <a class="home active" href="home.html">Home</a>
-                <a class="aboutus" href="about-us.html">About Us</a>
-                <a class="news-events" href="news&event.html">News & Events</a>
-                <a class="achievements" href="achievements.html">Achievements</a>
-                <a class="contactus" href="contact-us.html">Contact Us</a>
-            </div>
-        </nav>
+<main class="publications-grid-container">
+    <div class="publications-grid" id="publicationsGridContainer">
+        <!-- Publications will be injected here by JavaScript -->
+        <p classclass="grid-status">Loading publications...</p>
     </div>
+</main>
 
-    <!-- =======================
-         Page One / Hero Section 
-         ======================= -->
-    <main>
-        <div class="page-one-container">
-            <div class="leftside-first-page">
-                <h3 class="load-in-item load-in-text-h3">Studying the Sayings, Shaping the Souls</h3>
-                <p class="load-in-item load-in-text-p">
-                  As the Students’ Union of Sheikh Fareed Auliya Dawa College, we are committed to guiding minds towards the core ideals of our institution and fostering a culture of positive change within our community.
-                </p>
-                <button class="load-in-item load-in-button" onclick="window.location.href='about-us.html'">View Us</button>
-            </div>
-            <div class="rightside-first-page">
-               <div class="img-college-container load-in-item load-in-image">
-                <img src="IMG_2879.png" alt="Picture of the college">
-               </div>
-            </div>
-        </div>
+<script type="module">
+    // --- Firebase SDK Imports ---
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
+    import { getFirestore, collection, getDocs, query, orderBy, setLogLevel } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore.js";
 
-        <!-- =======================
-             Page Two / "More than a Union"
-             ======================= -->
-        <section class="section">
-            <div class="section-content animate-on-scroll fade-in-up">
-              <h3>More than a Union</h3>
-              <p>
-                United in purpose, we strive to inspire transformation, cultivate enlightened minds, and remain deeply connected to the roots that shaped our journey.
-              </p>
-              <button onclick="window.location.href='achievements.html'">Explore Us</button>
-            </div>
-        </section>
+    // --- Firebase Config (from magazineupload.html) ---
+    const firebaseConfig = {
+        apiKey: "AIzaSyDEJa-CTRHH1dIdXkqlVz2kYzaVwDogA",
+        authDomain: "achivement-upload.firebaseapp.com",
+        projectId: "achivement-upload",
+        storageBucket: "achivement-upload.appspot.com",
+        messagingSenderId: "252939747632",
+        appId: "1:252939747632:web:607df0b9d6543ffc6a88f5",
+        measurementId: "G-SPVJ7VLTCH"
+    };
 
-        <!-- =======================
-             Page Three / News & Events
-             ======================= -->
-       <div class="page-three-container">
-         <div class="news">
-            <!-- Grid Item 1 -->
-            <div class="div1 animate-on-scroll fade-in-up">
-                <img src="liora.JPG" alt="News event 1">
-                <div class="div1-hover">
-                    <p>Liora Triumphs at Koutukam SFADC Art Fest 2025, Lifts Rolling Trophy</p>
-                </div>
-            </div>
-            <!-- Grid Item 2 -->
-            <div class="div2 animate-on-scroll fade-in-up">
-                <img src="mission100.jpg" alt="News event 2">
-                <div class="div1-hover">
-                     <p>Mission 100+ is a journey of words and wisdom — a platform to enrich students’ academic and creative potential. Through publications and expression, we aim to shape thinkers, writers, and changemakers who inspire progress within and beyond the campus.</p>
-                </div>
-            </div>
-            <!-- Grid Item 3 -->
-            <div class="div3 animate-on-scroll fade-in-up">
-                <img src="SKSSF1.jpg" alt="News event 3">
-                <div class="div2-hover">
-                      <p>فلِيبلِغ | A Da’wa Project
-“واجعلنا للمتقين إماما...”
-فلِيبلِغ is a unique Da’wa initiative designed to inspire purposeful leadership and strengthen the spirit of Islamic guidance within the community. With the participation of over 700 aspirants under the mentorship of 20 experienced guides, all within one united mahallu, the project aims to cultivate knowledge, da’wah skills, and moral responsibility..</p>
-                </div>
-            </div>
-            <!-- Grid Item 4 -->
-            <div class="div4 animate-on-scroll fade-in-up">
-                <img src="LOLI (2).jpeg" alt="News event 4">
-                <div class="div2-hover">
-                    <p>"May new buds of thought blossom in the minds of our children, and may their joys be shared among one another." A one-day camp organized by the SFADC Odamala Students’ Union – IMAD will be held on Saturday, 01 June 2024, at SFADC Odamala. The first session will be led by Jishad Hudawi (HADIA Trainer) at 10:30 AM, followed by the second session led by Ziyad Hudawi (HADIA Trainer).</p>
-                </div>
-            </div>
-            <!-- Grid Item 5 -->
-            <div class="div5 animate-on-scroll fade-in-up">
-                <img src="ASLU.jpeg" alt="News event 5">
-                <div class="div2-hover">
-                    <p>The “Aslamthu – Proud Muslim Competition” was organized under the auspices of the Sheikh Fareed Auliya Da’wa College Students’ Union – IMAD, aiming to inspire pride in Islamic identity and encourage students to strengthen their faith through knowledge and participation. The program was moderated by Shuhaib Haithami..</p>
-                </div>
-            </div>
-        </div>
-       </div>
-    </main>
+    // --- Initialize Firebase ---
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+    // setLogLevel('debug'); // Uncomment for detailed logs
 
-    <!-- =======================
-         Footer
-         ======================= -->
-    <!-- UPDATED: Added animation class -->
-    <footer class="footer-container animate-on-scroll fade-in-up">
-        <div class="footer-content">
-          <!-- Section 1: Logo and About -->
-          <div class="footer-section">
-            <img src="logo+.png" alt="Footer Logo" class="footer-logo">
-            <p class="footer-text">
-              Brief description of IMADUNION or a mission statement can go here.
-            </p>
-          </div>
+    // --- Environment App ID (from magazineupload.html) ---
+    const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
 
-          <!-- Section 2: Quick Links -->
-          <div class="footer-section">
-            <h4 class="footer-title">Quick Links</h4>
-            <ul class="footer-links">
-              <li><a href="about-us.html">About Us</a></li>
-              <li><a href="news&event.html">News & Events</a></li>
-              <li><a href="achievements.html">Achievements</a></li>
-              <li><a href="contact-us.html">Contact Us</a></li>
-            </ul>
-          </div>
 
-          <!-- Section 3: Social Media -->
-         <div class="footer-section">
-            <h4 class="footer-title">Our Social Media</h4>
-            <ul class="footer-social">
-              <li><a href="https://www.instagram.com/imad_odamala?utm_source=ig_web_button_share_sheet&igsh=MTNleG5wNmIwanIzZQ==" aria-label="Instagram"><i class="fa-brands fa-instagram"></i> Instagram</a></li>
-              <li><a href="link" aria-label="Facebook"><i class="fa-brands fa-facebook"></i> Facebook</a></li>
-              <li><a href="link" aria-label="Whatsapp"><i class="fa-brands fa-whatsapp"></i> Whatsapp</a></li>
-            </ul>
-          </div>
-        </div>
-
-        <!-- Bottom Bar -->
-        <div class="footer-bottom">
-          <p>&copy; 2025 IMADUNION. All rights reserved.</p>
-        </div>
-    </footer>
-</div>
-
-<!-- JavaScript for Mobile Menu & Animations -->
-<script>
-    // --- Preloader ---
-    document.addEventListener('DOMContentLoaded', function() {
-        setTimeout(function() {
-            document.body.classList.add('loaded');
-        }, 1000); // 1 second, the rest is handled by CSS transitions
-    });
-
-    // --- Mobile Menu Toggle ---
-    const menuToggle = document.querySelector('.menu-toggle');
-    const rightSide = document.querySelector('.rightside'); 
-    menuToggle.addEventListener('click', () => {
-        rightSide.classList.toggle('show');
-    });
-
-    // --- Animation on Scroll ---
-    const animatedElements = document.querySelectorAll('.animate-on-scroll');
-    
-    if ("IntersectionObserver" in window) {
-        const observerOptions = { 
-            root: null, 
-            rootMargin: '0px', 
-            threshold: 0.1 // Start animation when 10% visible
-        };
+    document.addEventListener('DOMContentLoaded', () => {
         
-        const observer = new IntersectionObserver((entries, observer) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('is-visible');
-                    observer.unobserve(entry.target);
+        // --- Fetch and Display Publications ---
+        const gridContainer = document.getElementById('publicationsGridContainer');
+
+        async function fetchPublications() {
+            try {
+                // This path MUST match the one in magazineupload.html
+                const pubCollectionPath = `artifacts/${appId}/public/data/magazines`;
+                console.log(`Fetching from: ${pubCollectionPath}`); // Debug log
+                
+                const pubRef = collection(db, pubCollectionPath);
+                // Query to get all docs, ordered by 'createdAt' in descending order (newest first)
+                const q = query(pubRef, orderBy("createdAt", "desc"));
+                
+                const querySnapshot = await getDocs(q);
+                
+                const publications = querySnapshot.docs.map(doc => doc.data());
+                
+                displayPublications(publications);
+
+            } catch (error) {
+                console.error("Error fetching publications:", error);
+                gridContainer.innerHTML = `<p class="grid-status" style="color: red;">Error loading publications. Please try again later.</p>`;
+            }
+        }
+
+        /**
+         * Renders an array of publication objects into the grid
+         */
+        function displayPublications(pubs) {
+            gridContainer.innerHTML = ''; // Clear "Loading..."
+
+            if (pubs.length === 0) {
+                gridContainer.innerHTML = `<p class="grid-status">There are no publications to display yet.</p>`;
+                return;
+            }
+
+            pubs.forEach(pub => {
+                const title = pub.title || 'Untitled';
+                const description = pub.description || 'No description available.';
+                const imageUrl = pub.coverImageUrl || 'https://placehold.co/300x400/0c5079/ffffff?text=No+Cover';
+                
+                // Format the date
+                const date = pub.createdAt ? pub.createdAt.toDate() : new Date();
+                const formattedDate = date.toLocaleDateString('en-US', {
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric'
+                });
+
+                // Create a forced-download URL for Cloudinary (from home.html)
+                let downloadUrl = pub.pdfUrl || '#';
+                if (downloadUrl.includes('res.cloudinary.com')) {
+                    if (downloadUrl.includes('?')) {
+                        downloadUrl += '&fl_download=true';
+                    } else {
+                        downloadUrl += '?fl_download=true';
+                    }
                 }
+
+                const cardHTML = `
+                    <div class="magazine-card">
+                        <div class="magazine-card-image">
+                            <img src="${imageUrl}" alt="Cover of ${title}" onerror="this.src='https://placehold.co/300x400/eee/ccc?text=Image+Error';">
+                        </div>
+                        <div class="magazine-card-content">
+                            <p class="magazine-date">${formattedDate}</p>
+                            <h3 class="magazine-title">${title}</h3>
+                            <p class="magazine-description">${description}</p>
+                            <div class="magazine-actions">
+                                <a href="${downloadUrl}" class="download-btn" target="_blank" ${!pub.pdfUrl ? 'style="display:none;"' : ''}>
+                                    <i class="fa-solid fa-download"></i> Download PDF
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                gridContainer.insertAdjacentHTML('beforeend', cardHTML);
             });
-        }, observerOptions);
-        
-        animatedElements.forEach(el => {
-            observer.observe(el);
-        });
-    } else {
-        // Fallback for older browsers
-        animatedElements.forEach(el => {
-            el.classList.add('is-visible');
-        });
-    }
+        }
+
+        // Initial call to fetch data when the page loads
+        fetchPublications();
+    });
 </script>
 
 </body>
 </html>
+
